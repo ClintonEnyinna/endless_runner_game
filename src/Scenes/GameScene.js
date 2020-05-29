@@ -23,6 +23,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.model = this.sys.game.globals.model;
+
     // group with all active platforms.
     this.ground = this.physics.add.sprite(400, 585, 'platform').setScale(10, 1);
     this.ground.setImmovable(true);
@@ -143,6 +145,7 @@ export default class GameScene extends Phaser.Scene {
       this.animation.resume();
       this.value += 100;
       this.score.setText('Score: ' + this.value);
+      this.model.setScore(this.value);
     }
 
     if (this.obstacle.body) {
