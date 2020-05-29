@@ -9,22 +9,35 @@ export default class OptionsScene extends Phaser.Scene {
   create() {
     this.model = this.sys.game.globals.model;
 
-    this.title = this.add.text(400, 100, 'Game Over', { fontSize: 40 });
+    this.title = this.add.text(400, 100, 'Game Over!', { fontSize: 40 });
     this.title.setOrigin(0.5, 0.5);
 
-    this.player = this.add.text(400, 190, "what's your name?", {
-      fontSize: 24,
-    });
-    this.player.setOrigin(0.5, 0.5);
+    this.text = this.add.text(400, 190, 'Your score is: ', { fontSize: 24 });
+    this.text.setOrigin(0.5, 0.5);
+
+    this.score = this.add.text(400, 290, '', { fontSize: 36 });
+    this.score.setText(this.model.getScore());
+    this.score.setOrigin(0.5, 0.5);
 
     this.menuButton = new Button(
       this,
-      400,
+      250,
       500,
       'normal',
       'hover',
       'click',
-      'Menu',
+      'Again?',
+      'Game'
+    );
+
+    this.exitButton = new Button(
+      this,
+      550,
+      500,
+      'normal',
+      'hover',
+      'click',
+      'Exit',
       'Title'
     );
   }
