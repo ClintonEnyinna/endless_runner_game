@@ -3,6 +3,15 @@ export default class Model {
     this._soundOn = true;
     this._musicOn = true;
     this._bgMusicPlaying = false;
+    this._score = 0;
+  }
+
+  getScore() {
+    return this._score;
+  }
+
+  setScore(score) {
+    this._score = score;
   }
 
   set musicOn(value) {
