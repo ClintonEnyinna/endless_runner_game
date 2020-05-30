@@ -58,19 +58,35 @@ This project was built with Phaser-3.js, a 2D game framework for making HTML5 ga
 
 ### Boot Scene
 
-![screenshot](screenshot/Screenshot from 2020-05-30 13-22-52.png)
+![screenshot](screenshots/boot.png)
 
 ### Welcome Scene
 
-![screenshot](screenshots/.png)
+![screenshot](screenshots/welcome.png)
+
+### Title Scene
+
+![screenshot](screenshots/title.png)
 
 ### ScoreBoard Scene
 
-![screenshot](screenshots/.png)
+![screenshot](screenshots/score.png)
 
 ### Game Scene
 
-![screenshot](screenshots/.png)
+![screenshot](screenshots/game.png)
+
+### GameOver Scene
+
+![screenshot](screenshots/gameover.png)
+
+### Restart Scene
+
+![screenshot](screenshots/restart.png)
+
+### Credit Scene
+
+![screenshot](screenshots/credits.png)
 
 ### How To Play
 
@@ -115,11 +131,21 @@ See the [open issues](https://github.com/ClintonEnyinna/endless_runner_game/issu
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
+<!-- CREDIT -->
+
+## Credit
+
+* [Phaser](https://phaser.io/)
+* [OpenGameArt](https://opengameart.org/)
+* [gameart2D](https://www.gameart2d.com/freebies.html)
+
+
+
 <!-- CONTACT -->
 
 ## Contact
 
-Stephen Gumba - [Github profile](https://github.com/ClintonEnyinna)
+Clinton Enyinna - [Github profile](https://github.com/ClintonEnyinna)
 
 Project Link: [Project repo](https://github.com/ClintonEnyinna/endless_runner_game)
 
@@ -127,6 +153,6 @@ Project Link: [Project repo](https://github.com/ClintonEnyinna/endless_runner_ga
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/badge/Contributors-1-%2300ff00
-[contributors-url]: https://github.com/bafiam/snake-game-js/graphs/contributors
+[contributors-url]: https://github.com/ClintonEnyinna/endless_runner_game/graphs/contributors
 [issues-shield]: https://img.shields.io/badge/issues-0-%2300ff00
-[issues-url]: https://github.com/bafiam/snake-game-js/issues/
+[issues-url]: https://github.com/ClintonEnyinna/endless_runner_game/issues/
