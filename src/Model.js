@@ -3,8 +3,17 @@ export default class Model {
     this._soundOn = true;
     this._musicOn = true;
     this._bgMusicPlaying = false;
-    this._score = 0;
+    this._score = 1;
     this._name = '';
+    this.gameBoard = [];
+  }
+
+  getGameBoard() {
+    return this._gameBoard;
+  }
+
+  setGameBoard(gameBoard) {
+    this._gameBoard = gameBoard;
   }
 
   getScore() {
