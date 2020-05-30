@@ -7,14 +7,16 @@ export default class CreditsScene extends Phaser.Scene {
   }
 
   create() {
+    this.add.image(400, 300, 'cover').setScale(3);
+
     this.creditsText = this.add.text(0, 0, 'Credits', {
       fontSize: '32px',
-      fill: '#fff',
+      fill: '#000',
     });
 
     this.madeByText = this.add.text(0, 0, 'Created By: Clinton Enyinna', {
       fontSize: '26px',
-      fill: '#fff',
+      fill: '#000',
     });
 
     this.zone = this.add.zone(
@@ -34,7 +36,7 @@ export default class CreditsScene extends Phaser.Scene {
       targets: this.creditsText,
       y: -100,
       ease: 'Power1',
-      duration: 3000,
+      duration: 2000,
       delay: 1000,
       onComplete: function () {
         this.destroy;
@@ -43,9 +45,9 @@ export default class CreditsScene extends Phaser.Scene {
 
     this.madeByTween = this.tweens.add({
       targets: this.madeByText,
-      y: -300,
+      y: -100,
       ease: 'Power1',
-      duration: 8000,
+      duration: 5000,
       delay: 1000,
       onComplete: function () {
         this.madeByTween.destroy;

@@ -7,15 +7,25 @@ export default class OptionsScene extends Phaser.Scene {
   }
 
   create() {
+    this.add.image(400, 300, 'cover').setScale(3);
     this.model = this.sys.game.globals.model;
 
-    this.title = this.add.text(400, 100, 'High Scores', { fontSize: 40 });
+    this.title = this.add.text(400, 100, 'High Scores', {
+      fontSize: 40,
+      fill: '#000',
+    });
     this.title.setOrigin(0.5, 0.5);
 
-    this.player = this.add.text(200, 190, 'Player', { fontSize: 24 });
+    this.player = this.add.text(200, 190, 'Player', {
+      fontSize: 24,
+      fill: '#000',
+    });
     this.player.setOrigin(0.5, 0.5);
 
-    this.point = this.add.text(600, 190, 'Score', { fontSize: 24 });
+    this.point = this.add.text(600, 190, 'Score', {
+      fontSize: 24,
+      fill: '#000',
+    });
     this.point.setOrigin(0.5, 0.5);
 
     this.menuButton = new Button(

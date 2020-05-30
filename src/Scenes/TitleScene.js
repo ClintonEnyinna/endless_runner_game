@@ -9,6 +9,8 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     this.model = this.sys.game.globals.model;
+    this.add.image(400, 300, 'cover').setScale(3);
+    this.add.image(400, 300, 'window').setScale(0.8);
 
     // Game
     this.gameButton = new Button(
