@@ -106,12 +106,14 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('box', 'assets/box.png');
     this.load.image('checkedBox', 'assets/ui/blue_boxCheckmark.png');
     this.load.audio('bgMusic', ['assets/Caketown.mp3']);
+    this.load.image('window', 'assets/Windows_17.png');
+    this.load.image('cover', 'assets/Windows_38.png');
   }
 
   ready() {
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('Welcome');
     }
   }
 }
