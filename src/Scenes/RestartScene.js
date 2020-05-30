@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-unresolved
 import 'phaser';
 import Button from '../Objects/Button';
 
+// eslint-disable-next-line no-undef
 export default class OptionsScene extends Phaser.Scene {
   constructor() {
     super('Restart');
@@ -36,7 +38,7 @@ export default class OptionsScene extends Phaser.Scene {
       'hover',
       'click',
       'Again?',
-      'Game'
+      'Game',
     );
 
     this.exitButton = new Button(
@@ -47,7 +49,7 @@ export default class OptionsScene extends Phaser.Scene {
       'hover',
       'click',
       'Exit',
-      'Title'
+      'Title',
     );
   }
 }

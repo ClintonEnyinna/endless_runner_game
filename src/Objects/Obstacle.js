@@ -1,5 +1,6 @@
 import 'phaser';
 
+// eslint-disable-next-line no-undef
 export default class Obstacle extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);

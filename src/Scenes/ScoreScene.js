@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-unresolved
 import 'phaser';
 import Button from '../Objects/Button';
 
+// eslint-disable-next-line no-undef
 export default class OptionsScene extends Phaser.Scene {
   constructor() {
     super('Score');
@@ -39,12 +41,12 @@ export default class OptionsScene extends Phaser.Scene {
       'hover',
       'click',
       'Menu',
-      'Title'
+      'Title',
     );
   }
 
   addHighScores(arg) {
-    let pos = arg;
+    const pos = arg;
     this.highScores.forEach((item, index) => {
       this.add
         .text(600, pos[index], item.score, {
@@ -52,7 +54,6 @@ export default class OptionsScene extends Phaser.Scene {
           stroke: '#000',
           fill: '#43d637',
           strokeThickness: 3,
-          stroke: '#000',
         })
         .setOrigin(0.5, 0.5);
 
@@ -62,7 +63,6 @@ export default class OptionsScene extends Phaser.Scene {
           stroke: '#000',
           fill: '#43d637',
           strokeThickness: 3,
-          stroke: '#000',
         })
         .setOrigin(0.5, 0.5);
     });
