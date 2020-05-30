@@ -27,7 +27,10 @@ export default class GameScene extends Phaser.Scene {
   create() {
     this.model = this.sys.game.globals.model;
     this.gameEnded = false;
-
+    this.sys.game.globals.bgMusic.setVolume(0.1);
+    if (!this.model.bgMusicPlaying) {
+      this.sys.game.globals.bgMusic.play();
+    }
     // group with all active platforms.
     this.ground = this.physics.add.sprite(400, 585, 'platform').setScale(10, 1);
     this.ground.setImmovable(true);
@@ -189,6 +192,8 @@ export default class GameScene extends Phaser.Scene {
     this.tileSprite.destroy();
     this.player.setTint(0xff0000);
     this.animation.destroy();
+    this.sys.game.globals.bgMusic.pause();
+    this.model.bgMusicPlaying = false;
 
     if (this.model.getName() !== '') {
       await addScoreData({
@@ -209,6 +214,7 @@ export default class GameScene extends Phaser.Scene {
     this.time.delayedCall(
       2000,
       function () {
+        this.sys.game.globals.bgMusic.setVolume(0.5);
         this.scene.start('Restart');
       },
       [],
