@@ -1,4 +1,5 @@
 import 'phaser';
+import { getScoreData } from '../Leadership';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -10,6 +11,8 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   preload() {
+    this.model = this.sys.game.globals.model;
+
     // add logo image
     this.add.image(400, 300, 'logo');
 
@@ -70,7 +73,16 @@ export default class PreloaderScene extends Phaser.Scene {
     // remove progress bar when complete
     this.load.on(
       'complete',
-      function () {
+      async function () {
+        const data = await getScoreData();
+        const players = data.result;
+
+        const sortedPlayers = players
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5);
+
+        this.model.setGameBoard(sortedPlayers);
+
         progressBar.destroy();
         progressBox.destroy();
         loadingText.destroy();
@@ -80,7 +92,7 @@ export default class PreloaderScene extends Phaser.Scene {
       }.bind(this)
     );
 
-    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(2000, this.ready, [], this);
 
     // load assets needed in our game
     this.load.image('walk0', 'assets/player/Run__000.png');

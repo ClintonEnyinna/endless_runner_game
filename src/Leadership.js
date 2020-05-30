@@ -3,7 +3,7 @@ const baseUrl =
 
 const id = 'wiwuz8XPfcvf2MG5o2fz';
 
-const postData = async (playerScore) => {
+const addScoreData = async (playerScore) => {
   const response = await fetch(`${baseUrl}/${id}/scores`, {
     method: 'POST',
     headers: {
@@ -19,7 +19,7 @@ const postData = async (playerScore) => {
   return data;
 };
 
-const getData = async () => {
+const getScoreData = async () => {
   const response = await fetch(`${baseUrl}/${id}/scores`);
 
   const result = await response.json();
@@ -28,4 +28,4 @@ const getData = async () => {
   return data;
 };
 
-export { postData, getData };
+export { addScoreData, getScoreData };

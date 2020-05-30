@@ -26,6 +26,7 @@ export default class OptionsScene extends Phaser.Scene {
     this.score = this.add.text(400, 290, '', { fontSize: 36, fill: '#000' });
     this.score.setText(this.model.getScore());
     this.score.setOrigin(0.5, 0.5);
+    this.model.setScore(1);
 
     this.menuButton = new Button(
       this,

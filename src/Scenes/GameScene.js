@@ -1,5 +1,6 @@
 import 'phaser';
 import Obstacle from '../Objects/Obstacle';
+import { addScoreData, getScoreData } from '../Leadership';
 
 // global game options
 let gameOptions = {
@@ -155,7 +156,7 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  gameOver() {
+  async gameOver() {
     gameOptions.boxTiming[0] = 200;
     gameOptions.boxTiming[1] = 800;
     game.boxSpeed = 500;
@@ -166,6 +167,23 @@ export default class GameScene extends Phaser.Scene {
     this.tileSprite.destroy();
     this.player.setTint(0xff0000);
     this.animation.destroy();
+
+    if (this.model.getName() !== '') {
+      await addScoreData({
+        user: this.model.getName(),
+        score: this.model.getScore(),
+      });
+
+      const data = await getScoreData();
+      const players = data.result;
+
+      const sortedPlayers = players
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+
+      this.model.setGameBoard(sortedPlayers);
+    }
+
     this.time.delayedCall(
       1000,
       function () {
