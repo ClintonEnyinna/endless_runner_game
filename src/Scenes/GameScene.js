@@ -17,6 +17,7 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
     this.value = 0;
+    this.walkMusicOn = false;
   }
 
   preload() {
@@ -25,6 +26,7 @@ export default class GameScene extends Phaser.Scene {
 
   create() {
     this.model = this.sys.game.globals.model;
+    this.gameEnded = false;
 
     // group with all active platforms.
     this.ground = this.physics.add.sprite(400, 585, 'platform').setScale(10, 1);
@@ -61,6 +63,11 @@ export default class GameScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(200, 200, 'walk0');
     this.player.setScale(0.25);
     this.player.setGravityY(600);
+
+    this.walkMusic = this.sound.add('walkMusic', { volume: 0.5, loop: true });
+
+    this.jumpMusic = this.sound.add('jumpMusic', { volume: 0.5, repeat: 1 });
+
     this.player.play('run');
 
     // adding obstacle
@@ -109,7 +116,6 @@ export default class GameScene extends Phaser.Scene {
     if (gameOptions.counter > 5) {
       gameOptions.boxTiming[0] = 100;
       gameOptions.boxTiming[1] = 300;
-      console.log(gameOptions.boxTiming);
     }
     if (gameOptions.counter > 20) {
       gameOptions.boxSpeed = 600;
@@ -124,6 +130,9 @@ export default class GameScene extends Phaser.Scene {
 
   // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
   jump() {
+    this.walkMusic.pause();
+    this.jumpMusic.play();
+
     if (
       this.player.body.touching.down ||
       (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
@@ -142,8 +151,18 @@ export default class GameScene extends Phaser.Scene {
   update() {
     this.tileSprite.tilePositionX += 4;
 
+    if (
+      this.player.body.touching.down &&
+      this.walkMusic.isPlaying === false &&
+      !this.gameEnded
+    ) {
+      this.walkMusic.play();
+    }
+
     if (this.player.body.touching.down && this.animation.paused) {
       this.animation.resume();
+      this.jumpMusic.pause();
+
       this.value += 100;
       this.score.setText('Score: ' + this.value);
       this.model.setScore(this.value);
@@ -157,11 +176,14 @@ export default class GameScene extends Phaser.Scene {
   }
 
   async gameOver() {
+    this.gameEnded = true;
+
     gameOptions.boxTiming[0] = 200;
     gameOptions.boxTiming[1] = 800;
     game.boxSpeed = 500;
     gameOptions.counter = 0;
 
+    this.walkMusic.pause();
     this.physics.pause();
     this.value = 0;
     this.tileSprite.destroy();
@@ -185,7 +207,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.time.delayedCall(
-      1000,
+      2000,
       function () {
         this.scene.start('Restart');
       },
