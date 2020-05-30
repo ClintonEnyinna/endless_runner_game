@@ -1,7 +1,9 @@
+// eslint-disable-next-line import/no-unresolved
 import 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
 
+// eslint-disable-next-line no-undef
 export default class TitleScene extends Phaser.Scene {
   constructor() {
     super('Title');
@@ -21,7 +23,7 @@ export default class TitleScene extends Phaser.Scene {
       'hover',
       'click',
       'Play',
-      'Game'
+      'Game',
     );
 
     // Options
@@ -33,7 +35,7 @@ export default class TitleScene extends Phaser.Scene {
       'hover',
       'click',
       'Score',
-      'Score'
+      'Score',
     );
 
     // Credits
@@ -45,41 +47,32 @@ export default class TitleScene extends Phaser.Scene {
       'hover',
       'click',
       'About',
-      'About'
+      'About',
     );
 
     this.soundButton = this.add.image(750, 50, 'sound_normal');
     this.soundButton.setScale(0.3);
     this.soundButton.setInteractive();
 
-    this.soundButton.on(
-      'pointerover',
-      function () {
-        this.soundButton.setTexture('sound_hover');
-      }.bind(this)
-    );
+    this.soundButton.on('pointerover', () => {
+      this.soundButton.setTexture('sound_hover');
+    });
 
-    this.soundButton.on(
-      'pointerout',
-      function () {
-        if (this.model.musicOn === false) {
-          this.soundButton.setTexture('sound_locked');
-        } else {
-          this.soundButton.setTexture('sound_normal');
-        }
-      }.bind(this)
-    );
+    this.soundButton.on('pointerout', () => {
+      if (this.model.musicOn === false) {
+        this.soundButton.setTexture('sound_locked');
+      } else {
+        this.soundButton.setTexture('sound_normal');
+      }
+    });
 
-    this.soundButton.on(
-      'pointerdown',
-      function () {
-        this.soundButton.setTexture('sound_click');
-        this.model.musicOn = !this.model.musicOn;
-        setTimeout(() => {
-          this.updateAudio();
-        }, 100);
-      }.bind(this)
-    );
+    this.soundButton.on('pointerdown', () => {
+      this.soundButton.setTexture('sound_click');
+      this.model.musicOn = !this.model.musicOn;
+      setTimeout(() => {
+        this.updateAudio();
+      }, 100);
+    });
 
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
       this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });

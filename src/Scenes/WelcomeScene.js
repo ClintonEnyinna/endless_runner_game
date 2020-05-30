@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-unresolved
 import 'phaser';
 import Button from '../Objects/Button';
 
+// eslint-disable-next-line no-undef
 export default class WelcomeScene extends Phaser.Scene {
   constructor() {
     super('Welcome');
@@ -29,16 +31,15 @@ export default class WelcomeScene extends Phaser.Scene {
       stroke: '#000',
       fill: '#43d637',
       strokeThickness: 3,
-      stroke: '#000',
     });
     this.playerName.setOrigin(0.5, 0.5);
 
     this.input.keyboard.on('keyup', (event) => {
       if (
-        (event.keyCode >= 48 && event.keyCode <= 90) ||
-        event.keyCode === 32
+        (event.keyCode >= 48 && event.keyCode <= 90)
+        || event.keyCode === 32
       ) {
-        this.name = this.name + event.key;
+        this.name += event.key;
       }
 
       if (event.key === 'Backspace') {
@@ -58,7 +59,7 @@ export default class WelcomeScene extends Phaser.Scene {
       'hover',
       'click',
       'Continue',
-      'Title'
+      'Title',
     );
   }
 }

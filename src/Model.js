@@ -1,58 +1,58 @@
 export default class Model {
   constructor() {
-    this._soundOn = true;
-    this._musicOn = true;
-    this._bgMusicPlaying = false;
-    this._score = 1;
-    this._name = '';
+    this.soundOn = true;
+    this.musicOn = true;
+    this.bgMusicPlaying = false;
+    this.score = 1;
+    this.name = '';
     this.gameBoard = [];
   }
 
   getGameBoard() {
-    return this._gameBoard;
+    return this.gameBoard;
   }
 
   setGameBoard(gameBoard) {
-    this._gameBoard = gameBoard;
+    this.gameBoard = gameBoard;
   }
 
   getScore() {
-    return this._score;
+    return this.score;
   }
 
   setScore(score) {
-    this._score = score;
+    this.score = score;
   }
 
   getName() {
-    return this._name;
+    return this.name;
   }
 
   setName(name) {
-    this._name = name;
+    this.name = name;
   }
 
   set musicOn(value) {
-    this._musicOn = value;
+    this.musicOn = value;
   }
 
   get musicOn() {
-    return this._musicOn;
+    return this.musicOn;
   }
 
   set soundOn(value) {
-    this._soundOn = value;
+    this.soundOn = value;
   }
 
   get soundOn() {
-    return this._soundOn;
+    return this.soundOn;
   }
 
   set bgMusicPlaying(value) {
-    this._bgMusicPlaying = value;
+    this.bgMusicPlaying = value;
   }
 
   get bgMusicPlaying() {
-    return this._bgMusicPlaying;
+    return this.bgMusicPlaying;
   }
 }

@@ -1,5 +1,6 @@
 import 'phaser';
 
+// eslint-disable-next-line no-undef
 export default class Button extends Phaser.GameObjects.Container {
   constructor(scene, x, y, key1, key2, key3, text, targetScene) {
     super(scene);
@@ -14,34 +15,26 @@ export default class Button extends Phaser.GameObjects.Container {
       fill: '#000',
     });
 
+    // eslint-disable-next-line no-undef
     Phaser.Display.Align.In.Center(this.text, this.button);
 
     this.add(this.button);
     this.add(this.text);
 
-    this.button.on(
-      'pointerdown',
-      function () {
-        this.button.setTexture(key3);
-        setTimeout(() => {
-          this.scene.scene.start(targetScene);
-        }, 100);
-      }.bind(this)
-    );
+    this.button.on('pointerdown', () => {
+      this.button.setTexture(key3);
+      setTimeout(() => {
+        this.scene.scene.start(targetScene);
+      }, 100);
+    });
 
-    this.button.on(
-      'pointerover',
-      function () {
-        this.button.setTexture(key2);
-      }.bind(this)
-    );
+    this.button.on('pointerover', () => {
+      this.button.setTexture(key2);
+    });
 
-    this.button.on(
-      'pointerout',
-      function () {
-        this.button.setTexture(key1);
-      }.bind(this)
-    );
+    this.button.on('pointerout', () => {
+      this.button.setTexture(key1);
+    });
 
     this.scene.add.existing(this);
   }

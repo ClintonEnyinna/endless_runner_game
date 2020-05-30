@@ -1,6 +1,7 @@
 import 'phaser';
 import config from '../Config/config';
 
+// eslint-disable-next-line no-undef
 export default class CreditsScene extends Phaser.Scene {
   constructor() {
     super('About');
@@ -23,11 +24,13 @@ export default class CreditsScene extends Phaser.Scene {
       config.width / 2,
       config.height / 2,
       config.width,
-      config.height
+      config.height,
     );
 
+    // eslint-disable-next-line no-undef
     Phaser.Display.Align.In.Center(this.creditsText, this.zone);
 
+    // eslint-disable-next-line no-undef
     Phaser.Display.Align.In.Center(this.madeByText, this.zone);
 
     this.madeByText.setY(1000);
@@ -38,7 +41,8 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power1',
       duration: 2000,
       delay: 1000,
-      onComplete: function () {
+      onComplete() {
+        // eslint-disable-next-line no-unused-expressions
         this.destroy;
       },
     });
@@ -49,10 +53,11 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power1',
       duration: 5000,
       delay: 1000,
-      onComplete: function () {
+      onComplete() {
+        // eslint-disable-next-line no-unused-expressions
         this.madeByTween.destroy;
         this.scene.start('Title');
-      }.bind(this),
+      },
     });
   }
 }

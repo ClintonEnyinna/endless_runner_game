@@ -1,9 +1,10 @@
+// eslint-disable-next-line import/no-unresolved
 import 'phaser';
 import Obstacle from '../Objects/Obstacle';
 import { addScoreData, getScoreData } from '../Leadership';
 
 // global game options
-let gameOptions = {
+const gameOptions = {
   playerGravity: 900,
   jumpForce: 370,
   boxSpeed: 500,
@@ -13,15 +14,12 @@ let gameOptions = {
   boxTiming: [200, 800],
 };
 
+// eslint-disable-next-line no-undef
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
     this.value = 0;
     this.walkMusicOn = false;
-  }
-
-  preload() {
-    // load images
   }
 
   create() {
@@ -84,7 +82,7 @@ export default class GameScene extends Phaser.Scene {
       this.obstacle,
       this.gameOver,
       null,
-      this
+      this,
     );
 
     // checking for input
@@ -106,15 +104,14 @@ export default class GameScene extends Phaser.Scene {
       this.obstacle,
       this.gameOver,
       null,
-      this
+      this,
     );
-
-    let delay =
-      Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1]) *
-      10;
+    // eslint-disable-next-line no-undef
+    const delay = Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1])
+      * 10;
 
     this.timedEvent.delay = delay;
-    gameOptions.counter++;
+    gameOptions.counter += 1;
 
     if (gameOptions.counter > 5) {
       gameOptions.boxTiming[0] = 100;
@@ -131,14 +128,13 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
   jump() {
     this.walkMusic.pause();
     this.jumpMusic.play();
 
     if (
-      this.player.body.touching.down ||
-      (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
+      this.player.body.touching.down
+      || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
     ) {
       if (this.player.body.touching.down) {
         this.playerJumps = 0;
@@ -147,7 +143,7 @@ export default class GameScene extends Phaser.Scene {
       this.animation.pause();
       this.player.setTexture('jump');
       this.player.setVelocityY(gameOptions.jumpForce * -1);
-      this.playerJumps++;
+      this.playerJumps += 1;
     }
   }
 
@@ -155,9 +151,9 @@ export default class GameScene extends Phaser.Scene {
     this.tileSprite.tilePositionX += 4;
 
     if (
-      this.player.body.touching.down &&
-      this.walkMusic.isPlaying === false &&
-      !this.gameEnded
+      this.player.body.touching.down
+      && this.walkMusic.isPlaying === false
+      && !this.gameEnded
     ) {
       this.walkMusic.play();
     }
@@ -167,7 +163,7 @@ export default class GameScene extends Phaser.Scene {
       this.jumpMusic.pause();
 
       this.value += 100;
-      this.score.setText('Score: ' + this.value);
+      this.score.setText(`Score: ${this.value}`);
       this.model.setScore(this.value);
     }
 
@@ -183,7 +179,7 @@ export default class GameScene extends Phaser.Scene {
 
     gameOptions.boxTiming[0] = 200;
     gameOptions.boxTiming[1] = 800;
-    game.boxSpeed = 500;
+    gameOptions.boxSpeed = 500;
     gameOptions.counter = 0;
 
     this.walkMusic.pause();
@@ -213,12 +209,12 @@ export default class GameScene extends Phaser.Scene {
 
     this.time.delayedCall(
       2000,
-      function () {
+      () => {
         this.sys.game.globals.bgMusic.setVolume(0.5);
         this.scene.start('Restart');
       },
       [],
-      this
+      this,
     );
   }
 }
