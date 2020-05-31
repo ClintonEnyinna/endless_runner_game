@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 
-const baseUrl =
-  'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games';
+const baseUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games';
 
 const id = 'wiwuz8XPfcvf2MG5o2fz';
 
