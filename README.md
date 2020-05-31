@@ -131,8 +131,6 @@ See the [open issues](https://github.com/ClintonEnyinna/endless_runner_game/issu
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-# <<<<<<< HEAD
-
 <!-- CREDIT -->
 
 ## Credit
@@ -141,18 +139,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - [OpenGameArt](https://opengameart.org/)
 - [gameart2D](https://www.gameart2d.com/freebies.html)
 
-> > > > > > > f85eba8fa161518aba20d2b59562222b4b616573
-
 <!-- CONTACT -->
 
 ## Contact
 
-<<<<<<< HEAD
-Stephen Gumba - [Github profile](https://github.com/ClintonEnyinna)
-=======
 Clinton Enyinna - [Github profile](https://github.com/ClintonEnyinna)
-
-> > > > > > > f85eba8fa161518aba20d2b59562222b4b616573
 
 Project Link: [Project repo](https://github.com/ClintonEnyinna/endless_runner_game)
 
@@ -160,14 +151,6 @@ Project Link: [Project repo](https://github.com/ClintonEnyinna/endless_runner_ga
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/badge/Contributors-1-%2300ff00
-
-<<<<<<< HEAD
-[contributors-url]: https://github.com/bafiam/snake-game-js/graphs/contributors
-[issues-shield]: https://img.shields.io/badge/issues-0-%2300ff00
-[issues-url]: https://github.com/bafiam/snake-game-js/issues/
-=======
 [contributors-url]: https://github.com/ClintonEnyinna/endless_runner_game/graphs/contributors
 [issues-shield]: https://img.shields.io/badge/issues-0-%2300ff00
 [issues-url]: https://github.com/ClintonEnyinna/endless_runner_game/issues/
-
-> > > > > > > f85eba8fa161518aba20d2b59562222b4b616573
