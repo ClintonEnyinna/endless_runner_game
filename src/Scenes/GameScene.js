@@ -5,7 +5,6 @@ import { addScoreData, getScoreData } from '../Leadership';
 
 // global game options
 const gameOptions = {
-  playerGravity: 900,
   jumpForce: 370,
   boxSpeed: 500,
   playerStartPosition: 200,
@@ -25,6 +24,7 @@ export default class GameScene extends Phaser.Scene {
   create() {
     this.model = this.sys.game.globals.model;
     this.gameEnded = false;
+    this.sliding = false;
     this.sys.game.globals.bgMusic.setVolume(0.1);
     if (!this.model.bgMusicPlaying) {
       this.sys.game.globals.bgMusic.play();
@@ -60,19 +60,48 @@ export default class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'slide',
+      frames: [
+        { key: 'slide0' },
+        { key: 'slide1' },
+        { key: 'slide2' },
+        { key: 'slide3' },
+        { key: 'slide4' },
+      ],
+      frameRate: 15,
+      repeat: 1,
+    });
+
+    this.birdAnimation = this.anims.create({
+      key: 'fly',
+      frames: [
+        { key: 'fly0' },
+        { key: 'fly1' },
+        { key: 'fly2' },
+        { key: 'fly3' },
+      ],
+      frameRate: 15,
+      repeat: -1,
+    });
+
     // adding the player;
-    this.player = this.physics.add.sprite(200, 200, 'walk0');
+    this.player = this.physics.add.sprite(100, 0, 'walk0');
     this.player.setScale(0.25);
-    this.player.setGravityY(600);
+    this.player.setGravityY(650);
+    this.player.setCollideWorldBounds(true);
 
     this.walkMusic = this.sound.add('walkMusic', { volume: 0.5, loop: true });
 
     this.jumpMusic = this.sound.add('jumpMusic', { volume: 0.5, repeat: 1 });
 
-    this.player.play('run');
+    this.player.anims.play('run');
 
     // adding obstacle
-    this.obstacle = new Obstacle(this, 1000, 200, 'box');
+    this.obstacle = new Obstacle(this, 1000, 200, 'box', 0.15, 500);
+    this.birdObstacle = new Obstacle(this, 1000, 450, 'fly0', 0.08, 0);
+    this.birdObstacle.play('fly');
+    this.birdObstacle.setVelocityX(-350);
 
     // setting collisions between the player and the platform group
     this.physics.add.collider(this.player, this.ground);
@@ -82,11 +111,20 @@ export default class GameScene extends Phaser.Scene {
       this.obstacle,
       this.gameOver,
       null,
-      this,
+      this
+    );
+
+    this.physics.add.collider(
+      this.player,
+      this.birdObstacle,
+      this.gameOver,
+      null,
+      this
     );
 
     // checking for input
-    this.input.on('pointerdown', this.jump, this);
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.input.keyboard.on('keydown-UP', this.jump, this);
 
     this.timedEvent = this.time.addEvent({
       delay: 5000,
@@ -94,21 +132,49 @@ export default class GameScene extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    this.timedEvent = this.time.addEvent({
+      delay: 2000,
+      callback: this.onBirdEvent,
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  onBirdEvent() {
+    this.birdObstacle = new Obstacle(this, 1000, 450, 'fly0', 0.08, 0);
+    this.birdObstacle.play('fly');
+    this.birdObstacle.setVelocityX(-350);
+    this.physics.add.collider(this.birdObstacle, this.ground);
+    this.physics.add.collider(
+      this.player,
+      this.birdObstacle,
+      this.gameOver,
+      null,
+      this
+    );
+
+    // eslint-disable-next-line no-undef
+    const delay = Phaser.Math.Between(200, 800) * 10;
+
+    this.timedEvent.delay = delay;
   }
 
   onEvent() {
-    this.obstacle = new Obstacle(this, 1000, 200, 'box');
+    this.obstacle = new Obstacle(this, 1000, 200, 'box', 0.15, 500);
     this.physics.add.collider(this.obstacle, this.ground);
     this.physics.add.collider(
       this.player,
       this.obstacle,
       this.gameOver,
       null,
-      this,
+      this
     );
+
     // eslint-disable-next-line no-undef
-    const delay = Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1])
-      * 10;
+    const delay =
+      Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1]) *
+      10;
 
     this.timedEvent.delay = delay;
     gameOptions.counter += 1;
@@ -133,8 +199,8 @@ export default class GameScene extends Phaser.Scene {
     this.jumpMusic.play();
 
     if (
-      this.player.body.touching.down
-      || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
+      this.player.body.touching.down ||
+      (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
     ) {
       if (this.player.body.touching.down) {
         this.playerJumps = 0;
@@ -151,14 +217,31 @@ export default class GameScene extends Phaser.Scene {
     this.tileSprite.tilePositionX += 4;
 
     if (
-      this.player.body.touching.down
-      && this.walkMusic.isPlaying === false
-      && !this.gameEnded
+      this.player.body.touching.down &&
+      this.walkMusic.isPlaying === false &&
+      !this.gameEnded
     ) {
       this.walkMusic.play();
     }
 
-    if (this.player.body.touching.down && this.animation.paused) {
+    if (
+      this.cursors.down.isDown &&
+      !this.sliding &&
+      this.player.body.touching.down
+    ) {
+      this.sliding = true;
+      this.player.anims.play('slide');
+    } else if (this.cursors.down.isUp && this.sliding) {
+      this.sliding = false;
+      this.player.setVelocityY(-130);
+      this.player.anims.play('run');
+    }
+
+    if (
+      this.player.body.touching.down &&
+      this.animation.paused &&
+      !this.sliding
+    ) {
       this.animation.resume();
       this.jumpMusic.pause();
 
@@ -214,7 +297,7 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Restart');
       },
       [],
-      this,
+      this
     );
   }
 }
