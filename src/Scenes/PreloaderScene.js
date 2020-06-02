@@ -78,11 +78,13 @@ export default class PreloaderScene extends Phaser.Scene {
       const data = await getScoreData();
       const players = data.result;
 
-      const sortedPlayers = players
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 5);
+      if (players) {
+        const sortedPlayers = players
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5);
 
-      this.model.setGameBoard(sortedPlayers);
+        this.model.setGameBoard(sortedPlayers);
+      }
 
       progressBar.destroy();
       progressBox.destroy();
@@ -106,6 +108,20 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('walk8', 'assets/player/Run__008.png');
     this.load.image('walk9', 'assets/player/Run__009.png');
     this.load.image('jump', 'assets/player/Jump__002.png');
+    this.load.image('fly0', 'assets/bird/frame-1.png');
+    this.load.image('fly1', 'assets/bird/frame-2.png');
+    this.load.image('fly2', 'assets/bird/frame-3.png');
+    this.load.image('fly3', 'assets/bird/frame-4.png');
+    this.load.image('slide0', 'assets/player/Slide__000.png');
+    this.load.image('slide1', 'assets/player/Slide__001.png');
+    this.load.image('slide2', 'assets/player/Slide__002.png');
+    this.load.image('slide3', 'assets/player/Slide__003.png');
+    this.load.image('slide4', 'assets/player/Slide__004.png');
+    this.load.image('slide5', 'assets/player/Slide__005.png');
+    this.load.image('slide6', 'assets/player/Slide__006.png');
+    this.load.image('slide7', 'assets/player/Slide__007.png');
+    this.load.image('slide8', 'assets/player/Slide__008.png');
+    this.load.image('slide9', 'assets/player/Slide__009.png');
     this.load.image('city', 'assets/bg.jpg');
     this.load.image('platform', 'assets/platform.png');
     this.load.image('normal', 'assets/ui/Button_05.png');
@@ -126,7 +142,7 @@ export default class PreloaderScene extends Phaser.Scene {
   ready() {
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Welcome');
+      this.scene.start('Title');
     }
   }
 }
