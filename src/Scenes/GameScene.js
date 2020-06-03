@@ -5,19 +5,17 @@ import { addScoreData, getScoreData } from '../Leadership';
 
 // global game options
 const gameOptions = {
-  jumpForce: 370,
-  boxSpeed: 500,
-  playerStartPosition: 200,
+  jumpForce: 400,
+  boxSpeed: 350,
   jumps: 2,
   counter: 0,
-  boxTiming: [200, 800],
+  boxTiming: [300, 800],
 };
 
 // eslint-disable-next-line no-undef
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
-    this.value = 0;
     this.walkMusicOn = false;
   }
 
@@ -25,6 +23,7 @@ export default class GameScene extends Phaser.Scene {
     this.model = this.sys.game.globals.model;
     this.gameEnded = false;
     this.sliding = false;
+    this.value = 0;
     this.sys.game.globals.bgMusic.setVolume(0.1);
 
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
@@ -100,10 +99,10 @@ export default class GameScene extends Phaser.Scene {
     this.player.anims.play('run');
 
     // adding obstacle
-    this.obstacle = new Obstacle(this, 1000, 200, 'box', 0.15, 500);
-    this.birdObstacle = new Obstacle(this, 1000, 450, 'fly0', 0.08, 0);
+    this.obstacle = new Obstacle(this, 1000, 200, 'box', 0.8, 500);
+    this.birdObstacle = new Obstacle(this, 1000, 450, 'fly0', 0.07, 0);
     this.birdObstacle.play('fly');
-    this.birdObstacle.setVelocityX(-350);
+    this.birdObstacle.setVelocityX(-250);
 
     // setting collisions between the player and the platform group
     this.physics.add.collider(this.player, this.ground);
@@ -113,7 +112,7 @@ export default class GameScene extends Phaser.Scene {
       this.obstacle,
       this.gameOver,
       null,
-      this,
+      this
     );
 
     this.physics.add.collider(
@@ -121,7 +120,7 @@ export default class GameScene extends Phaser.Scene {
       this.birdObstacle,
       this.gameOver,
       null,
-      this,
+      this
     );
 
     // checking for input
@@ -129,14 +128,14 @@ export default class GameScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-UP', this.jump, this);
 
     this.timedEvent = this.time.addEvent({
-      delay: 5000,
+      delay: 8000,
       callback: this.onEvent,
       callbackScope: this,
       loop: true,
     });
 
-    this.timedEvent = this.time.addEvent({
-      delay: 2000,
+    this.birdTimedEvent = this.time.addEvent({
+      delay: 5000,
       callback: this.onBirdEvent,
       callbackScope: this,
       loop: true,
@@ -144,51 +143,50 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onBirdEvent() {
-    this.birdObstacle = new Obstacle(this, 1000, 450, 'fly0', 0.08, 0);
+    this.birdObstacle = new Obstacle(this, 1000, 450, 'fly0', 0.07, 0);
     this.birdObstacle.play('fly');
-    this.birdObstacle.setVelocityX(-350);
+    this.birdObstacle.setVelocityX(-300);
     this.physics.add.collider(this.birdObstacle, this.ground);
     this.physics.add.collider(
       this.player,
       this.birdObstacle,
       this.gameOver,
       null,
-      this,
+      this
     );
 
     // eslint-disable-next-line no-undef
-    const delay = Phaser.Math.Between(200, 800) * 10;
+    const delay = Phaser.Math.Between(800, 1200) * 10;
 
-    this.timedEvent.delay = delay;
+    this.birdTimedEvent.delay = delay;
   }
 
   onEvent() {
-    this.obstacle = new Obstacle(this, 1000, 200, 'box', 0.15, 500);
+    this.obstacle = new Obstacle(this, 1000, 200, 'box', 0.8, 500);
     this.physics.add.collider(this.obstacle, this.ground);
     this.physics.add.collider(
       this.player,
       this.obstacle,
       this.gameOver,
       null,
-      this,
+      this
     );
 
     // eslint-disable-next-line no-undef
-    const delay = Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1])
-      * 10;
+    const delay =
+      Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1]) *
+      10;
 
     this.timedEvent.delay = delay;
     gameOptions.counter += 1;
 
-    if (gameOptions.counter > 5) {
+    if (gameOptions.counter > 20) {
       gameOptions.boxTiming[0] = 100;
       gameOptions.boxTiming[1] = 300;
-    }
-    if (gameOptions.counter > 20) {
-      gameOptions.boxSpeed = 600;
+      gameOptions.boxSpeed = 450;
     }
     if (gameOptions.counter > 30) {
-      gameOptions.boxSpeed = 670;
+      gameOptions.boxSpeed = 500;
     }
     if (gameOptions.counter % 17 === 0) {
       this.timedEvent.delay = 6000;
@@ -200,8 +198,8 @@ export default class GameScene extends Phaser.Scene {
     this.jumpMusic.play();
 
     if (
-      this.player.body.touching.down
-      || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
+      this.player.body.touching.down ||
+      (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
     ) {
       if (this.player.body.touching.down) {
         this.playerJumps = 0;
@@ -215,20 +213,20 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-    this.tileSprite.tilePositionX += 4;
+    this.tileSprite.tilePositionX += 3;
 
     if (
-      this.player.body.touching.down
-      && this.walkMusic.isPlaying === false
-      && !this.gameEnded
+      this.player.body.touching.down &&
+      this.walkMusic.isPlaying === false &&
+      !this.gameEnded
     ) {
       this.walkMusic.play();
     }
 
     if (
-      this.cursors.down.isDown
-      && !this.sliding
-      && this.player.body.touching.down
+      this.cursors.down.isDown &&
+      !this.sliding &&
+      this.player.body.touching.down
     ) {
       this.sliding = true;
       this.player.anims.play('slide');
@@ -240,9 +238,9 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (
-      this.player.body.touching.down
-      && this.animation.paused
-      && !this.sliding
+      this.player.body.touching.down &&
+      this.animation.paused &&
+      !this.sliding
     ) {
       this.animation.resume();
       this.jumpMusic.pause();
@@ -264,12 +262,11 @@ export default class GameScene extends Phaser.Scene {
 
     gameOptions.boxTiming[0] = 200;
     gameOptions.boxTiming[1] = 800;
-    gameOptions.boxSpeed = 500;
+    gameOptions.boxSpeed = 350;
     gameOptions.counter = 0;
 
     this.walkMusic.pause();
     this.physics.pause();
-    this.value = 0;
     this.tileSprite.destroy();
     this.player.setTint(0xff0000);
     this.animation.destroy();
@@ -290,6 +287,7 @@ export default class GameScene extends Phaser.Scene {
         .slice(0, 5);
 
       this.model.setGameBoard(sortedPlayers);
+      this.value = 0;
     }
 
     this.time.delayedCall(
@@ -299,7 +297,7 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Restart');
       },
       [],
-      this,
+      this
     );
   }
 }
