@@ -112,7 +112,7 @@ export default class GameScene extends Phaser.Scene {
       this.obstacle,
       this.gameOver,
       null,
-      this
+      this,
     );
 
     this.physics.add.collider(
@@ -120,7 +120,7 @@ export default class GameScene extends Phaser.Scene {
       this.birdObstacle,
       this.gameOver,
       null,
-      this
+      this,
     );
 
     // checking for input
@@ -152,7 +152,7 @@ export default class GameScene extends Phaser.Scene {
       this.birdObstacle,
       this.gameOver,
       null,
-      this
+      this,
     );
 
     // eslint-disable-next-line no-undef
@@ -169,13 +169,12 @@ export default class GameScene extends Phaser.Scene {
       this.obstacle,
       this.gameOver,
       null,
-      this
+      this,
     );
 
     // eslint-disable-next-line no-undef
-    const delay =
-      Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1]) *
-      10;
+    const delay = Phaser.Math.Between(gameOptions.boxTiming[0], gameOptions.boxTiming[1])
+      * 10;
 
     this.timedEvent.delay = delay;
     gameOptions.counter += 1;
@@ -198,8 +197,8 @@ export default class GameScene extends Phaser.Scene {
     this.jumpMusic.play();
 
     if (
-      this.player.body.touching.down ||
-      (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
+      this.player.body.touching.down
+      || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)
     ) {
       if (this.player.body.touching.down) {
         this.playerJumps = 0;
@@ -216,17 +215,17 @@ export default class GameScene extends Phaser.Scene {
     this.tileSprite.tilePositionX += 3;
 
     if (
-      this.player.body.touching.down &&
-      this.walkMusic.isPlaying === false &&
-      !this.gameEnded
+      this.player.body.touching.down
+      && this.walkMusic.isPlaying === false
+      && !this.gameEnded
     ) {
       this.walkMusic.play();
     }
 
     if (
-      this.cursors.down.isDown &&
-      !this.sliding &&
-      this.player.body.touching.down
+      this.cursors.down.isDown
+      && !this.sliding
+      && this.player.body.touching.down
     ) {
       this.sliding = true;
       this.player.anims.play('slide');
@@ -238,9 +237,9 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (
-      this.player.body.touching.down &&
-      this.animation.paused &&
-      !this.sliding
+      this.player.body.touching.down
+      && this.animation.paused
+      && !this.sliding
     ) {
       this.animation.resume();
       this.jumpMusic.pause();
@@ -297,7 +296,7 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Restart');
       },
       [],
-      this
+      this,
     );
   }
 }
