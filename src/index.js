@@ -12,7 +12,7 @@ import WelcomeScene from './Scenes/WelcomeScene';
 import Model from './Model';
 
 // eslint-disable-next-line no-undef
-class Game extends Phaser.Game {
+export default class Game extends Phaser.Game {
   constructor() {
     super(config);
 
