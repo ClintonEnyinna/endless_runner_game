@@ -26,8 +26,10 @@ export default class GameScene extends Phaser.Scene {
     this.gameEnded = false;
     this.sliding = false;
     this.sys.game.globals.bgMusic.setVolume(0.1);
-    if (!this.model.bgMusicPlaying) {
+
+    if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
       this.sys.game.globals.bgMusic.play();
+      this.model.bgMusicPlaying = true;
     }
     // group with all active platforms.
     this.ground = this.physics.add.sprite(400, 585, 'platform').setScale(10, 1);
@@ -230,6 +232,7 @@ export default class GameScene extends Phaser.Scene {
     ) {
       this.sliding = true;
       this.player.anims.play('slide');
+      this.walkMusic.pause();
     } else if (this.cursors.down.isUp && this.sliding) {
       this.sliding = false;
       this.player.setVelocityY(-130);
