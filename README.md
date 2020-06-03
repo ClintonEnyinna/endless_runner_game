@@ -90,8 +90,9 @@ This project was built with Phaser-3.js, a 2D game framework for making HTML5 ga
 
 ### How To Play
 
-- Click or touch screen to jump up.
-- You can jump twice by double clicking
+- Up arrow to jump.
+- You can jump twice by double clicking the up arrow.
+- Down arrow to slide
 
 ## Playing Locally
 
